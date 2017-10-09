@@ -1,0 +1,16 @@
+{
+    "contents" : "val<-readRDS('choice_values.rds')\nlambda<-readRDS('lambda_values.rds')\nn=10000\n##############################\n#q3. part (2)\nchoice2=function(){\n  epsilon.k=rgev(3,xi=0,mu=0,beta=1)\n  uik[,3]=val[,3]+rep(epsilon.k,times=3)+rep(lambda[,2],times=3)*rgev(9,xi=0,mu=0,beta=1)\n  index=which.max(uik[,3])\n  unlist(val[index,1:2])\n}\nchoice.2nd=sapply(1:10000,function(i)choice2())\nchoice.2ndm=data.frame(bucket=choice.2nd[1,])\nchoice.2ndm$choice=choice.2nd[2,]\n\n\nchoice1=function(){\n  epsilon.k=rgev(3,xi=0,mu=0,beta=1)\n  bucket=lambda[,2]*log(rowSums(matrix(exp((val[,3]+rep(epsilon.k,times=3))/rep(lambda[,2],times=3)),ncol=3)))\n  bucket.cs=which.max(bucket)\n  eta.i=rgev(3,xi=0,mu=0,beta=1)\n  choice=val[val$bucket==bucket.cs,3]+lambda[lambda$bucket==bucket.cs,2]*eta.i\n  choice.cs=which.max(choice)\nreturn(c(bucket.cs,LETTERS[choice.cs]))\n}\nchoice.1st=sapply(1:10000,function(i)choice1())\nchoice.1stm=data.frame(bucket=choice.1st[1,])\nchoice.1stm$choice=choice.1st[2,]\n\n######################\n#question 4\n#choice1, probability\ntable(choice.1stm)/10000\n#choice1,bootstrap\nchoice1.bs=function(){\n  choice.1st=sapply(1:10000,function(i)choice1())\n  choice.1stm=data.frame(bucket=choice.1st[1,])\n  choice.1stm$choice=choice.1st[2,]\n  as.numeric(table(choice.1stm)/10000)\n}\nchoice1.bs.rs=sapply(1:100,function(i)choice1.bs())\n\n#choice2, probability\ntable(choice.2ndm)/10000\n#choice2, bootstrap\nchoice2.bs=function(){\nchoice.2nd=sapply(1:10000,function(i)choice2())\nchoice.2ndm=data.frame(bucket=choice.2nd[1,])\nchoice.2ndm$choice=choice.2nd[2,]\nas.numeric(table(choice.2ndm)/10000)\n}\nchoice2.bs.rs=sapply(1:100,function(i)choice2.bs())\n\n##########################\n# calculate the theoretical value\nval.lambda=cbind(val,lambda=rep(lambda[,2],times=3))\nval.lambda$exp=exp(val.lambda$val/val.lambda$lambda)\nsum.e=aggregate(exp~bucket,data=val.lambda,sum)\nval.lambda=cbind(val.lambda,sum.e=rep(sum.e[,2],times=3))\nval.lambda$sum.el=val.lambda$sum.e^val.lambda$lambda\nsum.e2=aggregate(sum.el~choice,data=val.lambda,sum)[1,2]\nval.lambda=cbind(val.lambda,sum.e2=sum.e2)\n#theoretical value\nh0=val.lambda$exp/val.lambda$sum.e*val.lambda$sum.el/val.lambda$sum.e2\n\n#wald test\nhest=apply(choice2.bs.rs,1,mean)\nhvar=cov(t(choice2.bs.rs))\nstats=t(hest-h0)%*%ginv(hvar)%*%(hest-h0)\n1-pchisq(stats, 9)#test for joint coef\n\nhest=apply(choice1.bs.rs,1,mean)\nhvar=cov(t(choice1.bs.rs))\nstats=t(hest-h0)%*%ginv(hvar)%*%(hest-h0)\n1-pchisq(stats, 9)#test for joint coef\n\n\n\n",
+    "created" : 1414471341292.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "78944258",
+    "id" : "C6267348",
+    "lastKnownWriteTime" : 1414471339,
+    "path" : "~/Downloads/robert lab.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

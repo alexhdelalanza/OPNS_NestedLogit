@@ -1,0 +1,16 @@
+{
+    "contents" : "#Nested logit coding assignment\nsource('header.R')\n\n#Load data\nval<-readRDS(paste0(varSave, 'choice_values.rds'))\nlambda<-readRDS(paste0(varSave, 'lambda_values.rds'))\n\n#Run Wald tests\nl_ply(c(simSequentialModel, simSimultaneousModel), function(simFun){\n  simFun(val, lambda) %>%\n    bootstrapChoices %>%\n    runWald(val=val, lambda=lambda) %>%\n    print  \n})\n\n#Notes: \n#m.R: \n#   The project is structured into modules \n#   I loop over functions in m.R\n#   I use readRDS() and saveRDS() rather than load() and save() because you specify the variable name directly\n#   I design the sim, bootstrap, and runWald functions to seemlessly flow into one another\n\n#header.R\n#   varSave<-'../variables/' uses .. to reference a folder in a different folder\n#   l_ply(dir(ex.mods), function(l) source(paste(ex.mods, l, sep=\"\"))) loads all modules. So I only use modules to define funtions, not to do any work. \n\n#simChoices.R:\n#   I don't make a single assignment in either function\n#   I exlusively use dplyr functions\n#   group_by(trial) %>% filter(rank(-val, ties.method=\"first\")==1) is a much faster way to choose the largest choice in each trial than ddply\n#   I simulate all error terms with a single call from rgev(), which is faster than calling it multiple times\n\n#theoryProbs.R\n#   I also only use dplyr functions here\n#   mutate(prob=val*group.val, prob=prob/sum(prob)) makes two transformations in one function call\n# \n\n#estimation.R\n#   bootstrapChoices() makes no assignment. The first sample samples without replacement, which yields the original dataset.\n#  runWald() uses dcast() to get the choices and buckets into columns. It then uses cov() to get the covariance matrix. Note, solve(cov, x) is faster than solve(cov)%*%x.",
+    "created" : 1407992213066.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3420089695",
+    "id" : "DEE7B896",
+    "lastKnownWriteTime" : 1414188150,
+    "path" : "~/Dropbox/teaching/OPNS523/labs/OPNS_NestedLogit_lab/solution/code/m.R",
+    "project_path" : "m.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

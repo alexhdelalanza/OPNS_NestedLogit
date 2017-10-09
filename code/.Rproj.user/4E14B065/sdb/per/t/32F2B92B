@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#Nested logit coding assignment\nsource('header.R')\n\n#Load data\ndata <- list(\n  val = readRDS(paste0(var_save, 'choice_values.rds')),\n  lambda = readRDS(paste0(var_save, 'lambda_values.rds'))\n)\n\n#Run Wald tests\nc(sim_sequential_model, sim_simultaneous_model) %>% \n  walk(function(sim_fun){\n    sim_fun(data$val, data$lambda) %>%\n      bootstrap_choices %>%\n      run_wald(val=data$val, lambda=data$lambda) %>%\n      print  \n  })\n\n#Notes: \n#m.R: \n#   The project is structured into modules \n#   For organization, I pool working variable into common list called data.\n#   I loop over functions in m.R\n#   I use readRDS() and saveRDS() rather than load() and save() because you specify the variable name directly\n#   Tidy flow: I design the sim, bootstrap, and run_wald functions to seemlessly integrate\n\n#header.R\n#   var_save<-'../variables/' uses .. to reference a folder in a different folder\n#   dir('modules') %>% walk(~source(paste('./modules/', ., sep=\"\"))) loads all modules. So I only use modules to define funtions, not to do any work. \n\n#simChoices.R:\n#   I don't make a single assignment in either function\n#   I exlusively use dplyr functions\n#   group_by(trial) %>% filter(rank(-val, ties.method=\"first\")==1) is a much faster way to choose the largest choice in each trial than ddply\n#   I simulate all error terms with a single call from rgev(), which is faster than calling it multiple times\n#   I add line breaks inside summarise function when it does multiple things\n#   I use fExtremes::rgev instead of loading the fExtremes library, because it overwrites the filter function\n\n#theoryProbs.R\n#   Second left_join merges a dataset with a function of the dataset\n#   mutate(prob=val*group.val, prob=prob/sum(prob)) makes two transformations in one function call\n# \n\n#estimation.R\n#   bootstrapChoices() makes no assignment. The first sample samples without replacement, which yields the original dataset.\n#   runWald() uses dcast() to get the choices and buckets into columns. \n#   It then uses %>% {function} notation to get vector and covariance matrix\n#   Solve(cov, x) is faster than solve(cov)%*%x.",
+    "created" : 1507575663773.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4206186641",
+    "id" : "32F2B92B",
+    "lastKnownWriteTime" : 1507580162,
+    "last_content_update" : 1507580162831,
+    "path" : "~/Dropbox/teaching/OPNS523/assignments/OPNS_NestedLogit_lab/solution/code/m.R",
+    "project_path" : "m.R",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

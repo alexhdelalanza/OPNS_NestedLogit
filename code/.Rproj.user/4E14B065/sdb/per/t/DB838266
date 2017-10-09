@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "makeData <- function(my.buckets = 1:3, my.choices = c('A', 'B', 'C')){\n  expand.grid(\n    bucket = my.buckets, \n    choice = my.choices\n  ) %>%\n    mutate(val=rnorm(n())) %>%\n    saveRDS(paste0(var_save, 'choice_values.rds'))\n  \n  data_frame(\n    bucket = my.buckets,\n    lambda = runif(length(my.buckets))\n  ) %>%\n    saveRDS(paste0(var_save, 'lambda_values.rds'))\n}\n",
+    "created" : 1507574462414.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "169631790",
+    "id" : "DB838266",
+    "lastKnownWriteTime" : 1507574877,
+    "last_content_update" : 1507574877678,
+    "path" : "~/Dropbox/teaching/OPNS523/assignments/OPNS_NestedLogit_lab/solution/code/modules/makeData.R",
+    "project_path" : "modules/makeData.R",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

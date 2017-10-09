@@ -1,0 +1,16 @@
+{
+    "contents" : "simSequentialModel<-function(val, lambda, S=10^4){\n  #simulate choices sequentially\n  left_join(val, lambda, by='bucket') %>%\n    group_by(bucket) %>%\n    #calc inclusive value\n    summarise(lambda=unique(lambda), inclusive.val=log(sum(exp(val/lambda)))) %>%\n    mutate(inclusive.val=lambda*inclusive.val) %>%\n    merge(data.frame(trial=seq(S))) %>% \n    #make first round choice\n    mutate(val=as.numeric(inclusive.val+rgev(n(), xi = 0, mu = 0, beta = 1))) %>% \n    group_by(trial) %>%\n    filter(rank(-val, ties.method=\"first\")==1) %>%\n    select(-val) %>%\n    #make second round choice\n    left_join(val, by='bucket') %>%\n    mutate(value=as.numeric(val+lambda*rgev(n(), xi = 0, mu = 0, beta = 1))) %>%\n    filter(rank(-value, ties.method=\"first\")==1) %>%\n    select(trial, bucket, choice) %>%\n    ungroup\n}  \n\nsimSimultaneousModel<-function(val, lambda, S=10^4){\n  #simulate choices simultaneously\n  left_join(val, lambda, by='bucket') %>%\n    merge(data.frame(trial=seq(S))) %>%\n    mutate(val=val+rgev(n(), xi = 0, mu = 0, beta = 1), val=as.numeric(val+lambda*rgev(n(), xi = 0, mu = 0, beta = 1))) %>%\n    group_by(trial) %>%\n    filter(rank(-val, ties.method=\"first\")==1) %>%\n    select(trial, bucket, choice) %>%\n    ungroup()\n}",
+    "created" : 1413423759834.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1659211663",
+    "id" : "15507C5",
+    "lastKnownWriteTime" : 1414188147,
+    "path" : "~/Dropbox/teaching/OPNS523/labs/OPNS_NestedLogit_lab/solution/code/modules/simChoices.R",
+    "project_path" : "modules/simChoices.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

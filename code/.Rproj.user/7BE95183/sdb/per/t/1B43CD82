@@ -1,0 +1,17 @@
+{
+    "contents" : "theoreticalProbabilities<-function(val, lambda){\n  #Calculate theoretical choice probabilities\n  prob<-left_join(val, lambda, by='bucket') %>%\n    mutate(val=exp(val/lambda))\n  \n  group.vals<-group_by(prob, bucket) %>%\n    summarise(group.val=sum(val)^(unique(lambda)-1))\n  \n  left_join(prob, group.vals, by='bucket') %>%\n    mutate(\n      prob=val*group.val,\n      prob=prob/sum(prob)\n    ) %>%\n    select(bucket, choice, prob) %>%\n    arrange(bucket, choice)\n}",
+    "created" : 1413424371449.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2840840353",
+    "id" : "1B43CD82",
+    "lastKnownWriteTime" : 1413424588,
+    "path" : "~/Dropbox/teaching/OPNS523/labs/OPNS_NestedLogit_lab/solution/code/modules/theoryProbs.R",
+    "project_path" : "modules/theoryProbs.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

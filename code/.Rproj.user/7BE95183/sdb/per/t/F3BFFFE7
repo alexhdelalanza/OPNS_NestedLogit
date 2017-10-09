@@ -1,0 +1,16 @@
+{
+    "contents" : "varSave<-'../variables/'\nex.mods<-'modules/'\nlibrary('fExtremes')\nlibrary('plyr')\nlibrary('reshape2')\nlibrary('dplyr')\nl_ply(dir(ex.mods), function(l) source(paste(ex.mods, l, sep=\"\")))\n",
+    "created" : 1414168801548.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "629610828",
+    "id" : "F3BFFFE7",
+    "lastKnownWriteTime" : 1413430456,
+    "path" : "~/Dropbox/teaching/OPNS523/labs/OPNS_NestedLogit_lab/solution/code/header.R",
+    "project_path" : "header.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

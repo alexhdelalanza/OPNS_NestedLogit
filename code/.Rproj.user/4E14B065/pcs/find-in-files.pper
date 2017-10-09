@@ -1,0 +1,10 @@
+{
+    "dialog-state" : {
+        "caseSensitive" : false,
+        "filePatterns" : [
+        ],
+        "path" : "~/Dropbox/teaching/OPNS523/assignments/OPNS_NestedLogit_lab/solution/code",
+        "query" : "simSequentialModel",
+        "regex" : false
+    }
+}
