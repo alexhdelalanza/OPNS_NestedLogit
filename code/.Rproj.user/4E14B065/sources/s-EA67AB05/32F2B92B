@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1507575663773.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "32F2B92B",
+    "lastKnownWriteTime" : 1588179480,
+    "last_content_update" : 1588179480607,
+    "path" : "~/Dropbox/teaching/OPNS523/assignments/OPNS_NestedLogit/question/code/m.R",
+    "project_path" : "m.R",
+    "properties" : {
+        "cursorPosition" : "6,0",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

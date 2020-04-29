@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "bootstrap_choices<-function(sim_data, num_boots = 100){\n  seq(num_boots) %>% \n    map_df(~{\n      data.frame(\n        samp  =  ., \n        sample_n(sim_data, nrow(sim_data), replace  =  . > 1) \n        #On first trial, use true data (i.e., sample without replacement)\n      )  \n    })\n}\n\nrun_wald<-function(sim_data, val, lambda){\n  #Run Wald test that simulated data follow theoretical choice probabilities\n  count(sim_data, samp, bucket, choice) %>% \n    group_by(samp) %>%\n    mutate(sim.prob = n/sum(n)) %>%\n    select(-n) %>% \n    left_join(\n      theoretical_probabilities(val, lambda), \n      by = c('bucket', 'choice')\n    ) %>%\n    mutate(delta = sim.prob-prob) %>%\n    select(-c(sim.prob, prob)) %>%\n    dcast(samp ~ bucket + choice, value.var = 'delta', fill = 0) %>% {\n      x <- \n        filter(., samp == 1) %>%\n        select(-(1:2)) %>%\n        unlist\n      \n      cov = select(., -(1:2)) %>%\n        cov() \n      \n      x%*%solve(cov, x) %>%\n        pchisq(df = length(x)) %>%\n        sum(-1) %>%\n        prod(-1)\n    }\n}",
+    "created" : 1507578600621.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2663515331",
+    "id" : "C6B9AC7E",
+    "lastKnownWriteTime" : 1507580192,
+    "last_content_update" : 1507580192614,
+    "path" : "~/Dropbox/teaching/OPNS523/assignments/OPNS_NestedLogit_lab/solution/code/modules/Estimation.R",
+    "project_path" : "modules/Estimation.R",
+    "properties" : {
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

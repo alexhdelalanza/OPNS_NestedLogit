@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "theoretical_probabilities<-function(val, lambda){\n  left_join(val, lambda, by='bucket') %>%\n    mutate(val=exp(val/lambda)) %>% \n    left_join(\n      .,\n      group_by(., bucket) %>%\n        summarise(group.val=sum(val)^(unique(lambda)-1))\n    ) %>%\n    mutate(\n      prob=val*group.val,\n      prob=prob/sum(prob)\n    ) %>%\n    select(bucket, choice, prob) %>%\n    arrange(bucket, choice)\n}",
+    "created" : 1507579602090.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3418516473",
+    "id" : "394C989A",
+    "lastKnownWriteTime" : 1507579944,
+    "last_content_update" : 1507579944160,
+    "path" : "~/Dropbox/teaching/OPNS523/assignments/OPNS_NestedLogit_lab/solution/code/modules/TheoryProbs.R",
+    "project_path" : "modules/TheoryProbs.R",
+    "properties" : {
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1507574462414.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "DB838266",
+    "lastKnownWriteTime" : 1588179505,
+    "last_content_update" : 1588179505070,
+    "path" : "~/Dropbox/teaching/OPNS523/assignments/OPNS_NestedLogit/question/code/modules/makeData.R",
+    "project_path" : "modules/makeData.R",
+    "properties" : {
+        "cursorPosition" : "12,0",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
