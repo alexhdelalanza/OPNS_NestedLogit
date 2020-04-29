@@ -5,14 +5,14 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
+    "hash" : "928122092",
     "id" : "32F2B92B",
-    "lastKnownWriteTime" : 1588179480,
-    "last_content_update" : 1588179480607,
+    "lastKnownWriteTime" : 1588180593,
+    "last_content_update" : 1588180593958,
     "path" : "~/Dropbox/teaching/OPNS523/assignments/OPNS_NestedLogit/question/code/m.R",
     "project_path" : "m.R",
     "properties" : {
-        "cursorPosition" : "6,0",
+        "cursorPosition" : "12,0",
         "scrollLine" : "0"
     },
     "relative_order" : 4,
